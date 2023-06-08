@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Cross-browser fill height */
+:where(:root) {
+  display: grid;
+  height: 100%;
+}
+
+body {
+  @apply bg-stone-50 font-serif text-stone-900 text-xl;
+}
