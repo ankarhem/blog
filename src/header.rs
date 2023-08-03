@@ -18,7 +18,7 @@ pub fn Header(cx: Scope) -> impl IntoView {
                     </li>
                     <li>
                         <A
-                            href="/articles/component-with-as"
+                            href="/articles"
                             class="block py-2 hover:underline aria-[current=page]:underline aria-[current=page]:decoration-stone-400 decoration-2 decoration-stone-900 hover:aria-[current=page]:decoration-stone-900"
                         >
                             "Articles"

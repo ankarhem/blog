@@ -1,45 +1,18 @@
 use leptos::*;
 use leptos_router::*;
-use serde::{Deserialize, Serialize};
-
-#[derive(Serialize, Deserialize, Clone)]
-pub struct Post {
-    toc: Option<String>,
-    content: String,
-}
-
-#[cfg(feature = "ssr")]
-impl From<femark::HTMLOutput> for Post {
-    fn from(output: femark::HTMLOutput) -> Self {
-        Self {
-            toc: output.toc,
-            content: output.content,
-        }
-    }
-}
 
 #[server(GetPost, "/api")]
-pub async fn get_post(cx: Scope, id: String) -> Result<Post, ServerFnError> {
-    let resp = expect_context::<leptos_actix::ResponseOptions>(cx);
-    resp.set_status(actix_web::http::StatusCode::NOT_FOUND);
+pub async fn get_post(cx: Scope, id: String) -> Result<crate::posts::Post, ServerFnError> {
+    use crate::posts::*;
     println!("get_post: {}", id);
-    let file_path = std::env::current_dir()?
-        .join("markdown")
-        .join(format!("{}.md", id));
-    println!("file_path: {:?}", file_path);
-    let file_contents = std::fs::read_to_string(file_path)?;
 
-    resp.set_status(actix_web::http::StatusCode::INTERNAL_SERVER_ERROR);
-    let markdown = femark::process_markdown_to_html(file_contents)
-        .map_err(|_| ServerFnError::ServerError("could not parse markdown".into()))?;
-
-    resp.set_status(actix_web::http::StatusCode::OK);
-
-    Ok(markdown.into())
+    let post = get_post(&id)?;
+    let parsed = post.parse_markdown()?;
+    Ok(parsed)
 }
 
 #[component]
-pub fn PostPage(cx: Scope) -> impl IntoView {
+pub fn ArticlePage(cx: Scope) -> impl IntoView {
     let params = use_params_map(cx);
     // id: || -> usize
     let post_id = move || params.with(|params| params.get("post_id").cloned().unwrap_or_default());

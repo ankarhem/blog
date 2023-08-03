@@ -1,6 +1,7 @@
 mod footer;
 mod header;
 // pub mod response;
+mod posts;
 mod routes;
 use footer::*;
 use header::*;
@@ -55,7 +56,8 @@ pub fn App(cx: Scope) -> impl IntoView {
             >
                 <Routes>
                     <Route path="/" view=routes::HomePage/>
-                    <Route path="/articles/:post_id" view=routes::PostPage/>
+                    <Route path="/articles" view=routes::ArticlesPage/>
+                    <Route path="/articles/:post_id" view=routes::ArticlePage/>
                 </Routes>
             </main>
             <Footer />

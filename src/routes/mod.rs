@@ -1,5 +1,7 @@
+mod article;
+mod articles;
 mod home;
-mod post;
 
+pub use article::*;
+pub use articles::*;
 pub use home::*;
-pub use post::*;
