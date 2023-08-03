@@ -24,9 +24,9 @@ cfg_if! {
 if #[cfg(feature = "ssr")] {
 
 impl RawPost {
-    pub fn parse_markdown(&self) -> Result<Post, ServerFnError> {
+    pub fn parse_markdown(&self) -> Result<Post, leptos::ServerFnError> {
         let output = femark::process_markdown_to_html(self.markdown.clone())
-            .map_err(|_| ServerFnError::ServerError("Could not parse markdown".into()))?;
+            .map_err(|_| leptos::ServerFnError::ServerError("Could not parse markdown".into()))?;
         Ok(Post {
             id: self.id.clone(),
             title: self.title.clone(),
@@ -37,7 +37,7 @@ impl RawPost {
     }
 }
 
-pub fn get_post(id: &str) -> leptos::error::Result<RawPost, ServerFnError> {
+pub fn get_post(id: &str) -> leptos::error::Result<RawPost, leptos::ServerFnError> {
     let file_path = std::env::current_dir()?.join("markdown").join(format!("{}.md", id));
     let file_contents = std::fs::read_to_string(file_path)?;
 
@@ -49,7 +49,7 @@ pub fn get_post(id: &str) -> leptos::error::Result<RawPost, ServerFnError> {
     })
 }
 
-pub fn get_posts() -> leptos::error::Result<Vec<RawPost>, ServerFnError> {
+pub fn get_posts() -> leptos::error::Result<Vec<RawPost>, leptos::ServerFnError> {
     let file_path = std::env::current_dir()?.join("markdown");
     let files = std::fs::read_dir(file_path)?;
     let mut posts = vec![];
