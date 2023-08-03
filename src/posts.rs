@@ -1,5 +1,5 @@
 use cfg_if::cfg_if;
-use leptos::ServerFnError;
+
 use serde::{Deserialize, Serialize};
 
 #[derive(Deserialize, Serialize, Clone)]
