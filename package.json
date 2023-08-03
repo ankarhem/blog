@@ -1,0 +1,19 @@
+{
+  "name": "blog-2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@tailwindcss/forms": "^0.5.4",
+    "@tailwindcss/typography": "^0.5.9",
+    "colord": "^2.9.3",
+    "tailwind-easy-theme": "^1.1.1",
+    "tailwindcss": "^3.3.3"
+  }
+}

@@ -1,0 +1,155 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Cross-browser fill height */
+:where(:root) {
+  display: grid;
+  height: 100%;
+}
+
+html {
+  @apply motion-safe:scroll-smooth antialiased;
+}
+
+a {
+  @apply scroll-m-6;
+}
+
+body {
+  @apply bg-stone-50 font-iosevka text-stone-900 text-xl;
+}
+
+/** CODE BLOCK CLASSES **/
+.code-block {
+  @apply text-base font-iosevka max-w-[calc(100vw_-_2rem)] sm:max-w-[calc(100vw_-_4rem)] lg:max-w-[60rem];
+}
+
+.code-block-inner {
+  @apply mt-0 rounded-tl-none;
+}
+
+.toc-entry > a {
+  text-decoration: underline;
+  @apply decoration-stone-400 hover:decoration-stone-900;
+}
+
+.toc-entry.level-1 {
+  @apply ml-0;
+}
+.toc-entry.level-2 {
+  @apply ml-4;
+}
+.toc-entry.level-3 {
+  @apply ml-8;
+}
+.toc-entry.level-4 {
+  @apply ml-12;
+}
+.toc-entry.level-5 {
+  @apply ml-16;
+}
+.toc-entry.level-6 {
+  @apply ml-20;
+}
+
+.language-tag {
+  display: inline-flex;
+  background: #c8d0e0;
+  padding: 0.25rem 0.5rem;
+  border-top-left-radius: 0.25rem;
+  border-top-right-radius: 0.25rem;
+}
+
+/* attribute */
+.hh0 {
+  color: #b988b0;
+}
+
+/* constant */
+.hh1 {
+  color: #88c0d0;
+}
+
+/* function.builtin */
+.hh2 {
+  color: #88c0d0;
+  font-style: italic;
+}
+/* function */
+.hh3 {
+  color: #81a1c1;
+  font-style: italic;
+}
+
+/* keyword */
+.hh4 {
+  color: #b988b0;
+}
+
+/* operator */
+.hh5 {
+  color: #b988b0;
+}
+
+/* property */
+.hh6 {
+  color: #81a1c1;
+}
+
+/* punctuation */
+/* punctuation.bracket */
+/* punctuation.delimiter */
+.hh7 {
+  color: #5e81ac;
+}
+
+/* string */
+.hh10 {
+  color: #a3be8c;
+}
+
+/* string.special */
+
+/* tag */
+.hh12 {
+  color: #ebcb8b;
+}
+
+/* type */
+.hh13 {
+  color: #ebcb8b;
+}
+/* type.builtin */
+.hh14 {
+  color: #d08f70;
+}
+
+/* variable */
+.hh15 {
+  color: #c8d0e0;
+}
+/* variable.builtin */
+.hh16 {
+  color: #d57780;
+}
+
+/* variable.parameter */
+.hh17 {
+  color: #d57780;
+}
+
+/* comment */
+.hh18 {
+  color: #6c7a96;
+}
+
+/* macro */
+.hh19 {
+  color: #81a1c1;
+}
+
+/* label */
+.hh20 {
+  color: #b988b0;
+}
