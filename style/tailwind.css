@@ -13,7 +13,7 @@ html {
 }
 
 a {
-  @apply scroll-m-6;
+  @apply scroll-m-4;
 }
 
 body {
@@ -23,6 +23,10 @@ body {
 /** CODE BLOCK CLASSES **/
 .code-block {
   @apply text-base font-iosevka max-w-[calc(100vw_-_2rem)] sm:max-w-[calc(100vw_-_4rem)] lg:max-w-[60rem];
+}
+
+.code-block-inner {
+  @apply font-iosevka text-sm sm:text-base;
 }
 
 .code-block-inner {

@@ -1,5 +1,8 @@
+mod footer;
 mod header;
-pub mod routes;
+// pub mod response;
+mod routes;
+use footer::*;
 use header::*;
 
 use cfg_if::cfg_if;
@@ -55,6 +58,7 @@ pub fn App(cx: Scope) -> impl IntoView {
                     <Route path="/articles/:post_id" view=routes::PostPage/>
                 </Routes>
             </main>
+            <Footer />
         </Router>
     }
 }

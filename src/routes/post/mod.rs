@@ -19,17 +19,21 @@ impl From<femark::HTMLOutput> for Post {
 }
 
 #[server(GetPost, "/api")]
-pub async fn get_post(id: String) -> Result<Post, ServerFnError> {
+pub async fn get_post(cx: Scope, id: String) -> Result<Post, ServerFnError> {
+    let resp = expect_context::<leptos_actix::ResponseOptions>(cx);
+    resp.set_status(actix_web::http::StatusCode::NOT_FOUND);
     println!("get_post: {}", id);
-
     let file_path = std::env::current_dir()?
         .join("markdown")
         .join(format!("{}.md", id));
     println!("file_path: {:?}", file_path);
     let file_contents = std::fs::read_to_string(file_path)?;
 
+    resp.set_status(actix_web::http::StatusCode::INTERNAL_SERVER_ERROR);
     let markdown = femark::process_markdown_to_html(file_contents)
         .map_err(|_| ServerFnError::ServerError("could not parse markdown".into()))?;
+
+    resp.set_status(actix_web::http::StatusCode::OK);
 
     Ok(markdown.into())
 }
@@ -39,7 +43,7 @@ pub fn PostPage(cx: Scope) -> impl IntoView {
     let params = use_params_map(cx);
     // id: || -> usize
     let post_id = move || params.with(|params| params.get("post_id").cloned().unwrap_or_default());
-    let post = create_resource(cx, post_id, |id| async move { get_post(id).await });
+    let post = create_resource(cx, post_id, move |id| async move { get_post(cx, id).await });
 
     view! { cx,
         <Transition
@@ -60,7 +64,7 @@ pub fn PostPage(cx: Scope) -> impl IntoView {
                         />
                     </>
                 }.into_view(cx),
-                _ => view! { cx, <p>"Error"</p> }.into_view(cx),
+                _ => view! { cx, <></> }.into_view(cx)
             }}
         </Transition>
     }
