@@ -1,6 +1,5 @@
 use cfg_if::cfg_if;
 
-use leptos::ServerFnError;
 use serde::{Deserialize, Serialize};
 
 #[derive(Deserialize, Serialize, Clone)]
@@ -93,8 +92,8 @@ fn find_yaml_block(text: &str) -> Option<(usize, usize, usize)> {
     }
 }
 
-fn parse_frontmatter(text: &str) -> Result<(PostFrontMatter, &str), ServerFnError> {
-    let (start, end, content_start) = find_yaml_block(text).ok_or(ServerFnError::ServerError("Could not find frontmatter".to_string()))?;
+fn parse_frontmatter(text: &str) -> Result<(PostFrontMatter, &str), leptos::ServerFnError> {
+    let (start, end, content_start) = find_yaml_block(text).ok_or(leptos::ServerFnError::ServerError("Could not find frontmatter".to_string()))?;
     let yaml_block = &text[start..end];
     let frontmatter = serde_yaml::from_str(yaml_block)?;
     Ok((frontmatter, &text[content_start..]))
