@@ -1,5 +1,9 @@
+mod skeleton;
+
 use leptos::*;
+use leptos_meta::*;
 use leptos_router::*;
+use skeleton::*;
 
 #[server(GetPost, "/api")]
 pub async fn get_post(cx: Scope, id: String) -> Result<crate::posts::Post, ServerFnError> {
@@ -8,6 +12,10 @@ pub async fn get_post(cx: Scope, id: String) -> Result<crate::posts::Post, Serve
 
     let post = get_post(&id)?;
     let parsed = post.parse_markdown()?;
+
+    // let ten_millis = std::time::Duration::from_millis(10000);
+    // std::thread::sleep(ten_millis);
+
     Ok(parsed)
 }
 
@@ -16,16 +24,17 @@ pub fn ArticlePage(cx: Scope) -> impl IntoView {
     let params = use_params_map(cx);
     // id: || -> usize
     let post_id = move || params.with(|params| params.get("post_id").cloned().unwrap_or_default());
-    let post = create_resource(cx, post_id, move |id| async move { get_post(cx, id).await });
+    let post =
+        create_blocking_resource(cx, post_id, move |id| async move { get_post(cx, id).await });
 
     view! { cx,
         <Transition
-            fallback=move || view! { cx, <p>"Loading..."</p> }
+            fallback=move || view! { cx, <SkeletonArticle /> }
         >
             {move || match post.read(cx) {
                 Some(Ok(data)) => view! { cx,
                     <>
-
+                        <Title text=data.frontmatter.title.clone() />
                         <article
                             class="prose prose-stone prose-lg mx-auto max-w-[unset] [&>*:not(.markdown-content)]:max-w-[50rem] [&>*]:mx-auto"
                         >
