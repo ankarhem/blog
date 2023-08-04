@@ -1,3 +1,9 @@
+---
+title: Polymorphic components with `as`
+tags: [react, typescript]
+excerpt: How to create a typed component that can render as an intrinsic element or another React component
+---
+
 ## Example component
 
 Minimal example of a component that can control styling but pass

@@ -25,16 +25,41 @@ pub fn ArticlePage(cx: Scope) -> impl IntoView {
             {move || match post.read(cx) {
                 Some(Ok(data)) => view! { cx,
                     <>
-                        {data.toc.map(|toc| view! { cx,
-                            <div
-                                class="max-w-[50rem] mx-auto p-4 mb-8 bg-stone-200 rounded"
-                                inner_html=toc
-                            />
-                        })}
+
                         <article
-                            class="prose prose-lg mx-auto max-w-[unset] [&>*:not(.code-block)]:max-w-[50rem] [&>*]:mx-auto"
-                            inner_html=data.content
-                        />
+                            class="prose prose-stone prose-lg mx-auto max-w-[unset] [&>*:not(.markdown-content)]:max-w-[50rem] [&>*]:mx-auto"
+                        >
+                            <div>
+                                <h1 class="break-words hyphens-auto mb-8">
+                                    {data.frontmatter.title.clone()}
+                                </h1>
+                                {data.frontmatter.tags.map(|tags| {
+                                    view! { cx,
+                                        <div class="flex items-center gap-2">
+                                            {tags.into_iter().map(|t| {
+                                                Some(view! { cx,
+                                                        <span
+                                                            class="bg-stone-200 rounded-full px-2 py-0.5 text-xs font-semibold"
+                                                        >
+                                                            {t}
+                                                        </span>
+                                                })
+                                            }).collect::<Vec<_>>()}
+                                        </div>
+                                    }
+                                })}
+                            </div>
+                            {data.toc.map(|toc| view! { cx,
+                                <div
+                                    class="not-prose text-stone-900 max-w-[50rem] mx-auto p-4 mt-10 mb-8 bg-stone-200 rounded"
+                                    inner_html=toc
+                                />
+                            })}
+                            <div
+                                class="markdown-content [&>*:not(.code-block)]:max-w-[50rem] [&>*]:mx-auto"
+                                inner_html=data.content
+                            />
+                        </article>
                     </>
                 }.into_view(cx),
                 _ => view! { cx, <></> }.into_view(cx)
