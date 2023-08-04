@@ -1,6 +1,9 @@
+mod skeleton;
+
 use leptos::*;
 use leptos_meta::*;
 use leptos_router::*;
+use skeleton::*;
 
 #[server(GetPost, "/api")]
 pub async fn get_post(cx: Scope, id: String) -> Result<crate::posts::Post, ServerFnError> {
@@ -9,6 +12,10 @@ pub async fn get_post(cx: Scope, id: String) -> Result<crate::posts::Post, Serve
 
     let post = get_post(&id)?;
     let parsed = post.parse_markdown()?;
+
+    // let ten_millis = std::time::Duration::from_millis(10000);
+    // std::thread::sleep(ten_millis);
+
     Ok(parsed)
 }
 
@@ -21,8 +28,8 @@ pub fn ArticlePage(cx: Scope) -> impl IntoView {
         create_blocking_resource(cx, post_id, move |id| async move { get_post(cx, id).await });
 
     view! { cx,
-        <Suspense
-            fallback=move || view! { cx, <p>"Loading..."</p> }
+        <Transition
+            fallback=move || view! { cx, <SkeletonArticle /> }
         >
             {move || match post.read(cx) {
                 Some(Ok(data)) => view! { cx,
@@ -66,6 +73,6 @@ pub fn ArticlePage(cx: Scope) -> impl IntoView {
                 }.into_view(cx),
                 _ => view! { cx, <></> }.into_view(cx)
             }}
-        </Suspense>
+        </Transition>
     }
 }
