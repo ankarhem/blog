@@ -43,6 +43,8 @@ pub fn App(cx: Scope) -> impl IntoView {
         <Link rel="preconnect" href="https://fonts.googleapis.com" />
         <Link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="true" />
         <Link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+        <Link rel="preconnect" href="https://iosevka-webfonts.github.io" />
+        <Link href="https://iosevka-webfonts.github.io/iosevka/iosevka.css" rel="stylesheet" />
 
 
         // sets the document title

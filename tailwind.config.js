@@ -14,7 +14,7 @@ module.exports = {
   theme: {
     fontFamily: {
       inter: ["Inter", "sans-serif"],
-      iosevka: ["Iosevka", "monospace"],
+      iosevka: ["Iosevka Web", "Iosevka", "monospace"],
     },
     extend: {
       typography: (theme) => ({
