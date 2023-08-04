@@ -13,7 +13,7 @@ html {
 }
 
 a {
-  @apply scroll-m-4;
+  @apply scroll-m-4 underline decoration-stone-400 hover:decoration-stone-900;
 }
 
 body {
@@ -26,7 +26,7 @@ body {
 }
 
 .code-block-inner {
-  @apply font-iosevka text-sm sm:text-base;
+  @apply font-iosevka text-sm sm:text-base bg-gray-800;
 }
 
 .code-block-inner {

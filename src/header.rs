@@ -11,7 +11,7 @@ pub fn Header(cx: Scope) -> impl IntoView {
                         <A
                             exact=true
                             href="/"
-                            class="block py-2 hover:underline aria-[current=page]:underline aria-[current=page]:decoration-stone-400 decoration-2 decoration-stone-900 hover:aria-[current=page]:decoration-stone-900"
+                            class="block py-2 no-underline hover:underline aria-[current=page]:underline aria-[current=page]:decoration-stone-400 decoration-2 decoration-stone-900 hover:aria-[current=page]:decoration-stone-900"
                         >
                             "Home"
                         </A>
@@ -19,7 +19,7 @@ pub fn Header(cx: Scope) -> impl IntoView {
                     <li>
                         <A
                             href="/articles"
-                            class="block py-2 hover:underline aria-[current=page]:underline aria-[current=page]:decoration-stone-400 decoration-2 decoration-stone-900 hover:aria-[current=page]:decoration-stone-900"
+                            class="block py-2 no-underline hover:underline aria-[current=page]:underline aria-[current=page]:decoration-stone-400 decoration-2 decoration-stone-900 hover:aria-[current=page]:decoration-stone-900"
                         >
                             "Articles"
                         </A>
@@ -28,7 +28,7 @@ pub fn Header(cx: Scope) -> impl IntoView {
                         <A
                             exact=true
                             href="/about"
-                            class="block py-2 hover:underline aria-[current=page]:underline aria-[current=page]:decoration-stone-400 decoration-2 decoration-stone-900 hover:aria-[current=page]:decoration-stone-900"
+                            class="block py-2 no-underline hover:underline aria-[current=page]:underline aria-[current=page]:decoration-stone-400 decoration-2 decoration-stone-900 hover:aria-[current=page]:decoration-stone-900"
                         >
                             "About"
                         </A>
