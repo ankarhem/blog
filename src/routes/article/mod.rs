@@ -1,4 +1,5 @@
 use leptos::*;
+use leptos_meta::*;
 use leptos_router::*;
 
 #[server(GetPost, "/api")]
@@ -16,16 +17,17 @@ pub fn ArticlePage(cx: Scope) -> impl IntoView {
     let params = use_params_map(cx);
     // id: || -> usize
     let post_id = move || params.with(|params| params.get("post_id").cloned().unwrap_or_default());
-    let post = create_resource(cx, post_id, move |id| async move { get_post(cx, id).await });
+    let post =
+        create_blocking_resource(cx, post_id, move |id| async move { get_post(cx, id).await });
 
     view! { cx,
-        <Transition
+        <Suspense
             fallback=move || view! { cx, <p>"Loading..."</p> }
         >
             {move || match post.read(cx) {
                 Some(Ok(data)) => view! { cx,
                     <>
-
+                        <Title text=data.frontmatter.title.clone() />
                         <article
                             class="prose prose-stone prose-lg mx-auto max-w-[unset] [&>*:not(.markdown-content)]:max-w-[50rem] [&>*]:mx-auto"
                         >
@@ -64,6 +66,6 @@ pub fn ArticlePage(cx: Scope) -> impl IntoView {
                 }.into_view(cx),
                 _ => view! { cx, <></> }.into_view(cx)
             }}
-        </Transition>
+        </Suspense>
     }
 }
